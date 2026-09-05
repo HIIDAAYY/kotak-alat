@@ -42,7 +42,9 @@
            overflow-hidden;
     @apply dark:border-garisG dark:bg-gelap2 dark:text-kapur3;
   }
-  .slot-728 { @apply h-[90px] w-full my-5; }
+  /* Dikunci di 728px karena itulah ukuran creative leaderboard sungguhan.
+     Di bawah 728px, w-full membuatnya menyusut mengikuti layar (lihat 375px). */
+  .slot-728 { @apply h-[90px] w-full max-w-[728px] mx-auto my-5; }
   .slot-300 { @apply h-[600px] w-full max-w-[300px]; }
 
   /* kotak teks */
