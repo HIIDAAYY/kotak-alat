@@ -1,0 +1,8 @@
+node_modules
+src
+bin
+_lama
+_uji
+package.json
+package-lock.json
+tailwind.config.js

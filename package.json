@@ -1,0 +1,14 @@
+{
+  "name": "kotak-alat",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Kotak Alat - situs statis multi-halaman, HTML + JavaScript murni.",
+  "scripts": {
+    "halaman": "node bin/bangun.js",
+    "css": "tailwindcss -i src/tailwind.css -o assets/kotakalat.css --minify",
+    "bangun": "npm run halaman && npm run css"
+  },
+  "devDependencies": {
+    "tailwindcss": "3.4.17"
+  }
+}

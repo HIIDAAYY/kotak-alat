@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HTML Escape &amp; Unescape entitas | Kotak Alat</title>
+<meta name="description" content="Ubah karakter berbahaya menjadi entitas HTML agar aman ditampilkan sebagai teks, atau kembalikan entitas menjadi karakter aslinya.">
+<link rel="canonical" href="https://kotak-alat.vercel.app/html-escape">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="HTML Escape &amp; Unescape entitas | Kotak Alat">
+<meta property="og:description" content="Ubah karakter berbahaya menjadi entitas HTML agar aman ditampilkan sebagai teks, atau kembalikan entitas menjadi karakter aslinya.">
+<meta property="og:url" content="https://kotak-alat.vercel.app/html-escape">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%231f6feb'/%3E%3Cpath d='M4 6h8M4 9h5' stroke='white' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/assets/kotakalat.css">
+<script>
+/* dijalankan sebelum halaman digambar supaya mode gelap tidak berkedip */
+(function(){try{var t=localStorage.getItem('kotakalat-tema');
+if(t==='gelap'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){
+document.documentElement.classList.add('dark');}}catch(e){}})();
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Beranda","item":"https://kotak-alat.vercel.app/"},{"@type":"ListItem","position":2,"name":"Encoder","item":"https://kotak-alat.vercel.app/#kategori-encoder"},{"@type":"ListItem","position":3,"name":"HTML Escape / Unescape","item":"https://kotak-alat.vercel.app/html-escape"}]}</script>
+</head>
+<body class="min-h-screen flex flex-col">
+
+<a href="#isi-utama" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:m-2 focus:rounded-lg focus:bg-aksen focus:px-3 focus:py-2 focus:text-aksenTx">Lewati ke isi</a>
+
+<header class="border-b border-garis bg-kertas2 dark:border-garisG dark:bg-gelap2">
+  <div class="wadah flex flex-wrap items-center gap-x-4 gap-y-2 py-3.5">
+    <a href="/" class="text-[17px] font-bold tracking-tight text-tinta no-underline dark:text-kapur">Kotak<span class="text-aksen dark:text-aksenG">Alat</span></a>
+    <nav aria-label="Navigasi utama" class="ml-auto flex flex-wrap gap-1 order-3 w-full sm:order-none sm:w-auto">
+      <a href="/" class="rounded-lg bg-kertas3 px-2.5 py-1.5 text-[14px] font-semibold text-tinta no-underline dark:bg-gelap3 dark:text-kapur" aria-current="page">Alat</a>
+      <a href="/tentang" class="rounded-lg px-2.5 py-1.5 text-[14px] text-tinta2 no-underline hover:bg-kertas3 hover:text-tinta dark:text-kapur2 dark:hover:bg-gelap3 dark:hover:text-kapur">Tentang</a>
+      <a href="/privasi" class="rounded-lg px-2.5 py-1.5 text-[14px] text-tinta2 no-underline hover:bg-kertas3 hover:text-tinta dark:text-kapur2 dark:hover:bg-gelap3 dark:hover:text-kapur">Privasi</a>
+      <a href="/ketentuan" class="rounded-lg px-2.5 py-1.5 text-[14px] text-tinta2 no-underline hover:bg-kertas3 hover:text-tinta dark:text-kapur2 dark:hover:bg-gelap3 dark:hover:text-kapur">Ketentuan</a>
+      <a href="/kontak" class="rounded-lg px-2.5 py-1.5 text-[14px] text-tinta2 no-underline hover:bg-kertas3 hover:text-tinta dark:text-kapur2 dark:hover:bg-gelap3 dark:hover:text-kapur">Kontak</a>
+    </nav>
+    <button type="button" id="tombol-tema" class="tbl tbl-sekunder ml-auto sm:ml-0" aria-pressed="false" title="Ganti mode terang / gelap">
+      <span aria-hidden="true" id="ikon-tema">☾</span>
+      <span id="teks-tema">Mode gelap</span>
+    </button>
+  </div>
+</header>
+
+<div class="wadah">
+  <div class="slot-iklan slot-728" role="complementary" aria-label="Ruang iklan">Slot iklan · 728 × 90</div>
+</div>
+
+<div class="wadah grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_300px] gap-7 items-start pb-10 flex-1">
+  <main id="isi-utama">
+    <nav aria-label="Remah roti" class="mb-3 text-[13px] text-tinta2 dark:text-kapur2">
+      <ol class="flex flex-wrap items-center gap-2 list-none p-0 m-0">
+        <li><a href="/" class="no-underline hover:underline">Beranda</a></li>
+        <li aria-hidden="true" class="text-tinta3 dark:text-kapur3">›</li>
+        <li><a href="/#kategori-encoder" class="no-underline hover:underline">Encoder</a></li>
+        <li aria-hidden="true" class="text-tinta3 dark:text-kapur3">›</li>
+        <li aria-current="page" class="font-medium text-tinta dark:text-kapur">HTML Escape / Unescape</li>
+      </ol>
+    </nav>
+    <h1>HTML Escape / Unescape</h1>
+    <p class="mb-1 max-w-[68ch] text-tinta2 dark:text-kapur2">Mengubah <code>&lt;</code>, <code>&gt;</code>, <code>&amp;</code>, dan tanda kutip menjadi entitas HTML agar aman ditampilkan sebagai teks biasa.</p>
+    
+      <div class="mt-5 grid gap-5 lg:grid-cols-2">
+        <div>
+          <label class="label-kecil" for="masuk">Masukan</label>
+          <div class="flex overflow-hidden rounded-lg border border-garis bg-kertas2 focus-within:ring-2 focus-within:ring-aksen dark:border-garisG dark:bg-gelap2 dark:focus-within:ring-aksenG">
+            <pre id="nomor-baris" aria-hidden="true" class="m-0 h-[300px] shrink-0 select-none overflow-hidden bg-kertas3 py-3 pl-3 pr-2 text-right font-mono text-[13px] leading-[1.55] text-tinta3 dark:bg-gelap3 dark:text-kapur3">1</pre>
+            <textarea id="masuk" wrap="off" spellcheck="false" autocomplete="off"
+              class="h-[300px] w-full resize-none border-0 bg-transparent p-3 font-mono text-[13px] leading-[1.55] text-tinta outline-none dark:text-kapur"
+              placeholder="Tempel teks di sini…"></textarea>
+          </div>
+        </div>
+        <div>
+          <span class="label-kecil" id="label-hasil">Hasil</span>
+          <pre id="keluar-sorot" tabindex="0" role="region" aria-labelledby="label-hasil" class="panel-hasil h-[300px] min-h-0 max-h-none"></pre>
+          <textarea id="keluar-mentah" hidden readonly aria-hidden="true" tabindex="-1" class="absolute -left-[9999px] h-px w-px"></textarea>
+        </div>
+      </div>
+
+      <div class="mt-4 flex flex-wrap gap-2">
+        <button type="button" class="tbl" id="jalan">Escape</button>
+        <button type="button" class="tbl tbl-sekunder" id="alt">Unescape</button>
+        <button type="button" class="tbl tbl-sekunder" id="contoh" data-contoh="&lt;a href=&quot;/cari?q=kopi&amp;kota=jakarta&quot;&gt;Kopi &amp; Gula&lt;/a&gt;">Muat contoh</button>
+        <button type="button" class="tbl tbl-sekunder" id="salin">Salin hasil</button>
+        <button type="button" class="tbl tbl-sekunder" id="unduh" data-nama="hasil-escape.txt">Unduh hasil</button>
+        <button type="button" class="tbl tbl-sekunder" id="bersih">Bersihkan</button>
+        <label class="tbl tbl-sekunder cursor-pointer" for="berkas">
+          Unggah berkas
+          <input type="file" id="berkas" accept=".html,.htm,.txt" class="sr-only">
+        </label>
+      </div>
+
+      <p id="status" class="mt-3 min-h-[20px] text-[13px] font-medium text-tinta2 dark:text-kapur2" role="status" aria-live="polite"></p>
+      <pre id="rincian" hidden class="mt-1 overflow-x-auto rounded-lg border border-garis bg-kertas2 p-3 font-mono text-[12.5px] leading-[1.5] text-rusak dark:border-garisG dark:bg-gelap2 dark:text-rusakG"></pre>
+
+      <div class="catatan">Escape mengubah lima karakter: <code>&amp;</code>, <code>&lt;</code>, <code>&gt;</code>, kutip ganda, dan kutip tunggal. Urutan penggantian menaruh <code>&amp;</code> paling awal supaya entitas yang sudah jadi tidak disandikan dua kali.</div>
+      <div class="catatan"><strong class="text-tinta dark:text-kapur">Batasan alat ini.</strong> Unescape hanya mengenali entitas bernama yang umum (<code>&amp;amp;</code>, <code>&amp;lt;</code>, <code>&amp;gt;</code>, <code>&amp;quot;</code>, <code>&amp;apos;</code>, <code>&amp;nbsp;</code>) ditambah entitas numerik <code>&amp;#NN;</code> dan <code>&amp;#xNN;</code>. Entitas bernama di luar daftar itu dibiarkan apa adanya dan dilaporkan barisnya, bukan diterjemahkan asal-asalan.</div>
+
+      <p class="mt-4 text-[13px] text-tinta3 dark:text-kapur3">
+        Berkas yang Anda unggah dibaca lewat <code>FileReader</code> di peramban ini dan tidak dikirim ke mana pun.
+      </p>
+  </main>
+
+  <aside class="w-full">
+    <div class="kartu mb-5">
+      <h2 class="mt-0 mb-2 text-[13px] font-semibold uppercase tracking-wider text-tinta3 dark:text-kapur3">Kategori Encoder</h2>
+      <ul class="grid gap-2 list-none p-0 m-0"><li><a href="/base64-encoder" class="text-[13.5px] no-underline hover:underline">Base64</a></li><li><a href="/url-encoder" class="text-[13.5px] no-underline hover:underline">URL Encoder</a></li><li><a href="/xml-escape" class="text-[13.5px] no-underline hover:underline">XML Escape</a></li></ul>
+      <p class="mt-3 mb-0 text-[13px]"><a href="/" class="no-underline hover:underline">Lihat semua alat →</a></p>
+    </div>
+    <div class="slot-iklan slot-300 mx-auto lg:mx-0" role="complementary" aria-label="Ruang iklan">Slot iklan · 300 × 600</div>
+  </aside>
+</div>
+
+<footer class="border-t border-garis bg-kertas2 py-8 dark:border-garisG dark:bg-gelap2">
+  <div class="wadah">
+    <nav aria-label="Semua alat" class="grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-3 lg:grid-cols-6">
+      <div>
+        <h2 class="mt-0 mb-2 text-[12px] font-semibold uppercase tracking-wider text-tinta3 dark:text-kapur3">Formatter</h2>
+        <ul class="grid gap-1.5 list-none p-0 m-0">
+          <li><a href="/json-formatter" class="text-[13px] text-tinta2 hover:text-aksen dark:text-kapur2 dark:hover:text-aksenG no-underline">JSON Formatter</a></li>
+          <li><a href="/html-formatter" class="text-[13px] text-tinta2 hover:text-aksen dark:text-kapur2 dark:hover:text-aksenG no-underline">HTML Formatter</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="mt-0 mb-2 text-[12px] font-semibold uppercase tracking-wider text-tinta3 dark:text-kapur3">Minifier</h2>
+        <ul class="grid gap-1.5 list-none p-0 m-0">
+          <li><a href="/json-minifier" class="text-[13px] text-tinta2 hover:text-aksen dark:text-kapur2 dark:hover:text-aksenG no-underline">JSON Minifier</a></li>
+          <li><a href="/css-minifier" class="text-[13px] text-tinta2 hover:text-aksen dark:text-kapur2 dark:hover:text-aksenG no-underline">CSS Minifier</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="mt-0 mb-2 text-[12px] font-semibold uppercase tracking-wider text-tinta3 dark:text-kapur3">Validator</h2>
+        <ul class="grid gap-1.5 list-none p-0 m-0">
+          <li><a href="/json-validator" class="text-[13px] text-tinta2 hover:text-aksen dark:text-kapur2 dark:hover:text-aksenG no-underline">JSON Validator</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="mt-0 mb-2 text-[12px] font-semibold uppercase tracking-wider text-tinta3 dark:text-kapur3">Konverter</h2>
+        <ul class="grid gap-1.5 list-none p-0 m-0">
+          <li><a href="/json-to-xml" class="text-[13px] text-tinta2 hover:text-aksen dark:text-kapur2 dark:hover:text-aksenG no-underline">JSON ke XML</a></li>
+          <li><a href="/timestamp-converter" class="text-[13px] text-tinta2 hover:text-aksen dark:text-kapur2 dark:hover:text-aksenG no-underline">Timestamp Converter</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="mt-0 mb-2 text-[12px] font-semibold uppercase tracking-wider text-tinta3 dark:text-kapur3">Encoder</h2>
+        <ul class="grid gap-1.5 list-none p-0 m-0">
+          <li><a href="/base64-encoder" class="text-[13px] text-tinta2 hover:text-aksen dark:text-kapur2 dark:hover:text-aksenG no-underline">Base64</a></li>
+          <li><a href="/url-encoder" class="text-[13px] text-tinta2 hover:text-aksen dark:text-kapur2 dark:hover:text-aksenG no-underline">URL Encoder</a></li>
+          <li><a href="/html-escape" class="text-[13px] font-semibold text-tinta dark:text-kapur no-underline" aria-current="page">HTML Escape</a></li>
+          <li><a href="/xml-escape" class="text-[13px] text-tinta2 hover:text-aksen dark:text-kapur2 dark:hover:text-aksenG no-underline">XML Escape</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="mt-0 mb-2 text-[12px] font-semibold uppercase tracking-wider text-tinta3 dark:text-kapur3">Lainnya</h2>
+        <ul class="grid gap-1.5 list-none p-0 m-0">
+          <li><a href="/regex-tester" class="text-[13px] text-tinta2 hover:text-aksen dark:text-kapur2 dark:hover:text-aksenG no-underline">Regex Tester</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="mt-7 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-garis pt-5 text-[13px] text-tinta2 dark:border-garisG dark:text-kapur2">
+      <a href="/" class="text-tinta2 no-underline hover:text-aksen dark:text-kapur2 dark:hover:text-aksenG">Alat</a>
+      <a href="/tentang" class="text-tinta2 no-underline hover:text-aksen dark:text-kapur2 dark:hover:text-aksenG">Tentang</a>
+      <a href="/privasi" class="text-tinta2 no-underline hover:text-aksen dark:text-kapur2 dark:hover:text-aksenG">Privasi</a>
+      <a href="/ketentuan" class="text-tinta2 no-underline hover:text-aksen dark:text-kapur2 dark:hover:text-aksenG">Ketentuan</a>
+      <a href="/kontak" class="text-tinta2 no-underline hover:text-aksen dark:text-kapur2 dark:hover:text-aksenG">Kontak</a>
+    </div>
+    <p class="mt-3 text-[13px] text-tinta3 dark:text-kapur3">Seluruh pemrosesan terjadi di browser Anda.</p>
+  </div>
+</footer>
+
+<div id="cookie" hidden class="fixed inset-x-4 bottom-4 z-40 mx-auto max-w-[560px] rounded-xl border border-garis bg-kertas p-4 text-[13.5px] text-tinta2 shadow-2xl dark:border-garisG dark:bg-gelap2 dark:text-kapur2">
+  Situs ini memakai cookie seperlunya agar berfungsi. Cookie untuk pengukuran dan iklan
+  hanya dipasang bila Anda mengizinkannya.
+  <div class="mt-3 flex flex-wrap gap-2">
+    <button type="button" class="tbl" id="ck-perlu">Hanya yang diperlukan</button>
+    <button type="button" class="tbl tbl-sekunder" id="ck-semua">Izinkan semua</button>
+  </div>
+</div>
+
+<script src="/assets/situs.js"></script>
+<script src="/assets/sorot.js"></script>
+<script src="/assets/alat/html-escape.js"></script>
+</body>
+</html>

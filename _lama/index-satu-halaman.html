@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kotak Alat — perkakas format & konversi di browser</title>
+<meta name="description" content="Kumpulan alat pemformat dan pengonversi yang berjalan sepenuhnya di browser: JSON formatter, JSON ke XML, HTML formatter, Base64, dan URL encoder.">
+<style>
+  :root{
+    --bg:#ffffff; --bg-2:#f6f7f9; --bg-3:#eef0f3;
+    --tx:#16181d; --tx-2:#5b616e; --tx-3:#8a919e;
+    --br:#dfe2e8; --ac:#1f6feb; --ac-tx:#ffffff;
+    --ok:#0a7d3f; --err:#c0392b; --slot:#f0f1f4;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  :root:not([data-theme="light"]){ }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0f1115; --bg-2:#161920; --bg-3:#1d212a;
+      --tx:#e6e8ec; --tx-2:#a2a9b6; --tx-3:#727a88;
+      --br:#272c36; --ac:#4c8dff; --ac-tx:#08101f;
+      --ok:#3ddc84; --err:#ff6b5e; --slot:#161920;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0f1115; --bg-2:#161920; --bg-3:#1d212a;
+    --tx:#e6e8ec; --tx-2:#a2a9b6; --tx-3:#727a88;
+    --br:#272c36; --ac:#4c8dff; --ac-tx:#08101f;
+    --ok:#3ddc84; --err:#ff6b5e; --slot:#161920;
+  }
+
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.6 var(--sans)}
+  a{color:var(--ac)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+
+  header{border-bottom:1px solid var(--br);background:var(--bg-2)}
+  .bar{display:flex;align-items:center;gap:16px;padding:14px 0;flex-wrap:wrap}
+  .logo{font-weight:700;font-size:17px;letter-spacing:-.2px}
+  .logo span{color:var(--ac)}
+  nav{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+  nav button{background:none;border:0;color:var(--tx-2);font:inherit;font-size:14px;padding:7px 11px;border-radius:7px;cursor:pointer}
+  nav button:hover{background:var(--bg-3);color:var(--tx)}
+  nav button[aria-current="true"]{background:var(--bg-3);color:var(--tx);font-weight:600}
+
+  .slot{background:var(--slot);border:1px dashed var(--br);border-radius:8px;
+        display:flex;align-items:center;justify-content:center;color:var(--tx-3);
+        font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+  .slot-atas{height:90px;margin:20px 0}
+  .slot-samping{height:600px}
+
+  .kolom{display:grid;grid-template-columns:1fr 300px;gap:28px;align-items:start;padding-bottom:40px}
+  @media (max-width:900px){ .kolom{grid-template-columns:1fr} .slot-samping{height:250px} }
+
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 18px;border-bottom:1px solid var(--br);padding-bottom:12px}
+  .tabs button{background:var(--bg-2);border:1px solid var(--br);color:var(--tx-2);
+               font:inherit;font-size:13.5px;padding:8px 13px;border-radius:999px;cursor:pointer}
+  .tabs button:hover{color:var(--tx)}
+  .tabs button[aria-selected="true"]{background:var(--ac);border-color:var(--ac);color:var(--ac-tx);font-weight:600}
+
+  h1{font-size:22px;margin:0 0 4px;letter-spacing:-.3px}
+  .sub{color:var(--tx-2);font-size:14px;margin:0 0 18px}
+  h2{font-size:18px;margin:28px 0 8px}
+
+  .io{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:760px){ .io{grid-template-columns:1fr} }
+  label{display:block;font-size:12.5px;color:var(--tx-2);margin-bottom:6px;font-weight:600}
+  textarea{width:100%;min-height:280px;padding:12px;border:1px solid var(--br);border-radius:8px;
+           background:var(--bg-2);color:var(--tx);font:13px/1.55 var(--mono);resize:vertical}
+  textarea:focus{outline:2px solid var(--ac);outline-offset:-1px}
+
+  .aksi{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+  .btn{background:var(--ac);color:var(--ac-tx);border:0;font:inherit;font-weight:600;font-size:14px;
+       padding:9px 16px;border-radius:8px;cursor:pointer}
+  .btn.sekunder{background:var(--bg-3);color:var(--tx);border:1px solid var(--br);font-weight:500}
+  .btn:active{transform:translateY(1px)}
+
+  .status{font-size:13px;min-height:20px;margin-top:2px}
+  .status.ok{color:var(--ok)}
+  .status.err{color:var(--err);font-family:var(--mono);font-size:12.5px}
+
+  .catatan{background:var(--bg-2);border:1px solid var(--br);border-left:3px solid var(--ac);
+           border-radius:0 8px 8px 0;padding:12px 14px;font-size:13.5px;color:var(--tx-2);margin:18px 0}
+
+  .halaman{display:none}
+  .halaman.aktif{display:block}
+  .prosa{max-width:660px}
+  .prosa p{color:var(--tx-2)}
+  .prosa h2{color:var(--tx)}
+
+  footer{border-top:1px solid var(--br);background:var(--bg-2);padding:22px 0;margin-top:20px;
+         color:var(--tx-3);font-size:13px}
+  .flinks{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+  .flinks button{background:none;border:0;color:var(--tx-2);font:inherit;font-size:13px;cursor:pointer;padding:0}
+  .flinks button:hover{color:var(--ac)}
+
+  #cookie{position:fixed;left:16px;right:16px;bottom:16px;max-width:560px;margin:0 auto;
+          background:var(--bg);border:1px solid var(--br);border-radius:12px;padding:16px;
+          box-shadow:0 10px 30px rgba(0,0,0,.18);font-size:13.5px;color:var(--tx-2)}
+  #cookie .aksi{margin:12px 0 0}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <div class="logo">Kotak<span>Alat</span></div>
+    <nav>
+      <button data-hal="alat" aria-current="true">Alat</button>
+      <button data-hal="tentang">Tentang</button>
+      <button data-hal="privasi">Privasi</button>
+      <button data-hal="ketentuan">Ketentuan</button>
+      <button data-hal="kontak">Kontak</button>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="slot slot-atas">Slot iklan · 728 × 90</div>
+</div>
+
+<div class="wrap kolom">
+  <main>
+
+    <!-- ============ ALAT ============ -->
+    <section class="halaman aktif" id="hal-alat">
+      <h1>Perkakas format &amp; konversi</h1>
+      <p class="sub">Semua berjalan di browser Anda. Tidak ada data yang dikirim ke server mana pun.</p>
+
+      <div class="tabs" role="tablist">
+        <button role="tab" aria-selected="true" data-alat="json">JSON Formatter</button>
+        <button role="tab" aria-selected="false" data-alat="jsonxml">JSON ke XML</button>
+        <button role="tab" aria-selected="false" data-alat="html">HTML Formatter</button>
+        <button role="tab" aria-selected="false" data-alat="base64">Base64</button>
+        <button role="tab" aria-selected="false" data-alat="url">URL Encoder</button>
+      </div>
+
+      <div class="io">
+        <div>
+          <label for="masuk">Masukan</label>
+          <textarea id="masuk" spellcheck="false" placeholder="Tempel teks di sini…"></textarea>
+        </div>
+        <div>
+          <label for="keluar">Hasil</label>
+          <textarea id="keluar" spellcheck="false" readonly></textarea>
+        </div>
+      </div>
+
+      <div class="aksi">
+        <button class="btn" id="jalan">Proses</button>
+        <button class="btn sekunder" id="alt">Rapikan / Balik</button>
+        <button class="btn sekunder" id="contoh">Muat contoh</button>
+        <button class="btn sekunder" id="salin">Salin hasil</button>
+        <button class="btn sekunder" id="bersih">Bersihkan</button>
+      </div>
+      <div class="status" id="status"></div>
+
+      <div class="catatan" id="ket"></div>
+    </section>
+
+    <!-- ============ TENTANG ============ -->
+    <section class="halaman prosa" id="hal-tentang">
+      <h1>Tentang</h1>
+      <p>KotakAlat adalah kumpulan perkakas kecil untuk pekerjaan sehari-hari yang berulang:
+         merapikan JSON, mengubah format, menyandikan teks.</p>
+      <h2>Semuanya berjalan di browser</h2>
+      <p>Tidak ada teks yang dikirim ke server. Seluruh pemrosesan terjadi di perangkat Anda,
+         sehingga data yang ditempel — termasuk yang bersifat internal — tidak pernah meninggalkan komputer Anda.</p>
+      <h2>Tanpa layanan berbayar pihak ketiga</h2>
+      <p>Tidak ada API berbayar di balik alat-alat ini. Karena itu situsnya tetap cepat,
+         biayanya dapat diprediksi, dan tidak ada yang rusak ketika kuota layanan luar habis.</p>
+    </section>
+
+    <!-- ============ PRIVASI ============ -->
+    <section class="halaman prosa" id="hal-privasi">
+      <h1>Kebijakan Privasi</h1>
+      <p><em>Contoh isi untuk prototipe. Teks final disesuaikan dengan kebutuhan pemilik situs.</em></p>
+      <h2>Data yang Anda masukkan</h2>
+      <p>Teks yang Anda tempel ke dalam alat diproses sepenuhnya di browser dan tidak dikirim,
+         disimpan, atau dicatat di server mana pun.</p>
+      <h2>Cookie</h2>
+      <p>Situs ini dapat menggunakan cookie untuk mengingat preferensi tampilan. Cookie untuk
+         pengukuran dan iklan hanya dipasang setelah Anda menyetujuinya.</p>
+      <h2>Iklan</h2>
+      <p>Ruang iklan pada halaman ini dapat diisi oleh jaringan iklan pihak ketiga. Jaringan
+         tersebut memiliki kebijakan privasinya sendiri.</p>
+    </section>
+
+    <!-- ============ KETENTUAN ============ -->
+    <section class="halaman prosa" id="hal-ketentuan">
+      <h1>Syarat &amp; Ketentuan</h1>
+      <p><em>Contoh isi untuk prototipe.</em></p>
+      <h2>Penggunaan</h2>
+      <p>Alat-alat di situs ini disediakan sebagaimana adanya, untuk penggunaan wajar dan tidak melanggar hukum.</p>
+      <h2>Tanpa jaminan</h2>
+      <p>Hasil konversi disediakan tanpa jaminan ketepatan untuk keperluan tertentu. Periksa kembali
+         hasilnya sebelum dipakai pada sistem produksi.</p>
+      <h2>Perubahan</h2>
+      <p>Ketentuan ini dapat berubah sewaktu-waktu. Versi yang berlaku adalah yang tertera di halaman ini.</p>
+    </section>
+
+    <!-- ============ KONTAK ============ -->
+    <section class="halaman prosa" id="hal-kontak">
+      <h1>Kontak</h1>
+      <p>Untuk pertanyaan, laporan kesalahan, atau kerja sama pemasangan iklan, silakan hubungi
+         alamat surel yang tercantum di bawah.</p>
+      <p><strong>surel:</strong> halo@contoh-domain.id</p>
+      <div class="catatan">
+        Pada prototipe ini kontak sengaja ditampilkan sebagai alamat surel, bukan formulir.
+        Formulir menuntut endpoint pengiriman, perlindungan anti-bot, dan penanganan data pengirim —
+        tiga hal yang keputusannya ada di pemilik situs, bukan di prototipe.
+      </div>
+    </section>
+
+  </main>
+
+  <aside>
+    <div class="slot slot-samping">Slot iklan · 300 × 600</div>
+  </aside>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="flinks">
+      <button data-hal="tentang">Tentang</button>
+      <button data-hal="privasi">Privasi</button>
+      <button data-hal="ketentuan">Ketentuan</button>
+      <button data-hal="kontak">Kontak</button>
+    </div>
+    <div>Prototipe · seluruh pemrosesan terjadi di browser</div>
+  </div>
+</footer>
+
+<div id="cookie" hidden>
+  Situs ini memakai cookie seperlunya agar berfungsi. Cookie untuk pengukuran dan iklan
+  hanya dipasang bila Anda mengizinkannya.
+  <div class="aksi">
+    <button class="btn" id="ck-perlu">Hanya yang diperlukan</button>
+    <button class="btn sekunder" id="ck-semua">Izinkan semua</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- navigasi halaman ---------- */
+  function keHalaman(nama){
+    document.querySelectorAll('.halaman').forEach(function(s){
+      s.classList.toggle('aktif', s.id === 'hal-' + nama);
+    });
+    document.querySelectorAll('nav button').forEach(function(b){
+      b.setAttribute('aria-current', String(b.dataset.hal === nama));
+    });
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+  document.querySelectorAll('[data-hal]').forEach(function(b){
+    b.addEventListener('click', function(){ keHalaman(b.dataset.hal); });
+  });
+
+  /* ---------- utilitas ---------- */
+  var masuk  = document.getElementById('masuk');
+  var keluar = document.getElementById('keluar');
+  var status = document.getElementById('status');
+  var ket    = document.getElementById('ket');
+  var aktif  = 'json';
+
+  function lapor(pesan, jenis){
+    status.textContent = pesan || '';
+    status.className = 'status' + (jenis ? ' ' + jenis : '');
+  }
+  function ukuran(t){ return new Blob([t]).size; }
+  function hemat(sebelum, sesudah){
+    var a = ukuran(sebelum), b = ukuran(sesudah);
+    if (!a) return '';
+    var d = Math.round((1 - b/a) * 100);
+    return a + ' B → ' + b + ' B' + (d > 0 ? ' (−' + d + '%)' : '');
+  }
+
+  /* ---------- 1. JSON ---------- */
+  function jsonRapi(t){ return JSON.stringify(JSON.parse(t), null, 2); }
+  function jsonPadat(t){ return JSON.stringify(JSON.parse(t)); }
+
+  /* ---------- 2. JSON → XML ---------- */
+  function amanTag(k){
+    var s = String(k).replace(/[^A-Za-z0-9_.-]/g, '_');
+    if (!/^[A-Za-z_]/.test(s)) s = '_' + s;
+    return s;
+  }
+  function lolosTeks(v){
+    return String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;')
+                    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function keXml(nilai, tag, dalam){
+    var sp = '  '.repeat(dalam);
+    if (nilai === null || nilai === undefined) return sp + '<' + tag + '/>\n';
+    if (Array.isArray(nilai)){
+      return nilai.map(function(v){ return keXml(v, tag, dalam); }).join('');
+    }
+    if (typeof nilai === 'object'){
+      var isi = Object.keys(nilai).map(function(k){
+        return keXml(nilai[k], amanTag(k), dalam + 1);
+      }).join('');
+      return sp + '<' + tag + '>\n' + isi + sp + '</' + tag + '>\n';
+    }
+    return sp + '<' + tag + '>' + lolosTeks(nilai) + '</' + tag + '>\n';
+  }
+  function jsonKeXml(t){
+    var d = JSON.parse(t);
+    return '<?xml version="1.0" encoding="UTF-8"?>\n' + keXml(d, 'root', 0);
+  }
+
+  /* ---------- 3. HTML ---------- */
+  var VOID = ['area','base','br','col','embed','hr','img','input','link','meta','param','source','track','wbr'];
+  function htmlRapi(t){
+    var potong = t.replace(/>\s+</g, '><').trim().split(/(<[^>]+>)/g).filter(function(x){ return x.trim(); });
+    var dalam = 0, baris = [];
+    potong.forEach(function(p){
+      var tutup   = /^<\//.test(p);
+      var buka    = /^<[a-zA-Z]/.test(p);
+      var mandiri = /\/>$/.test(p);
+      var nama    = (p.match(/^<\/?([a-zA-Z0-9-]+)/) || [])[1];
+      var kosong  = nama && VOID.indexOf(nama.toLowerCase()) !== -1;
+      var khusus  = /^<(!|\?)/.test(p);
+      if (tutup) dalam = Math.max(0, dalam - 1);
+      baris.push('  '.repeat(dalam) + p.trim());
+      if (buka && !tutup && !mandiri && !kosong && !khusus) dalam++;
+    });
+    return baris.join('\n');
+  }
+  function htmlPadat(t){
+    return t.replace(/<!--[\s\S]*?-->/g, '')
+            .replace(/>\s+</g, '><')
+            .replace(/\s{2,}/g, ' ')
+            .trim();
+  }
+
+  /* ---------- 4. Base64 ---------- */
+  function b64Sandi(t){
+    return btoa(String.fromCharCode.apply(null, new TextEncoder().encode(t)));
+  }
+  function b64Buka(t){
+    var bersih = t.replace(/\s/g, '');
+    var biner = atob(bersih);
+    var arr = new Uint8Array(biner.length);
+    for (var i = 0; i < biner.length; i++) arr[i] = biner.charCodeAt(i);
+    return new TextDecoder().decode(arr);
+  }
+
+  /* ---------- daftar alat ---------- */
+  var ALAT = {
+    json: {
+      utama:'Rapikan', altNama:'Padatkan',
+      jalan: jsonRapi, alt: jsonPadat,
+      contoh: '{"nama":"Adit","kota":"Jakarta","stack":["Next.js","TypeScript"],"aktif":true}',
+      ket:'Memeriksa kesahihan JSON sekaligus merapikannya. Kalau ada kesalahan sintaks, posisi kesalahannya ditampilkan apa adanya dari mesin JavaScript — bukan pesan umum "JSON tidak valid".'
+    },
+    jsonxml: {
+      utama:'Ubah ke XML', altNama:'—',
+      jalan: jsonKeXml, alt: null,
+      contoh: '{"pesanan":{"id":1042,"pembeli":"Rina","barang":[{"nama":"Kopi","jumlah":2},{"nama":"Gula","jumlah":1}]}}',
+      ket:'Larik menjadi elemen berulang dengan nama tag yang sama. Nama kunci yang tidak sah sebagai tag XML dibersihkan otomatis, dan karakter &amp;, &lt;, &gt; pada nilai di-escape.'
+    },
+    html: {
+      utama:'Rapikan', altNama:'Padatkan',
+      jalan: htmlRapi, alt: htmlPadat,
+      contoh: '<div class="kartu"><h2>Judul</h2><p>Isi <b>tebal</b> dan <a href="#">tautan</a>.</p><img src="a.png" alt="a"></div>',
+      ket:'Indentasi mengikuti kedalaman tag. Tag tanpa penutup (img, br, input, meta, dan lainnya) tidak menambah kedalaman. Mode padatkan membuang komentar dan spasi antar tag.'
+    },
+    base64: {
+      utama:'Sandikan', altNama:'Buka sandi',
+      jalan: b64Sandi, alt: b64Buka,
+      contoh: 'Halo dunia — teks dengan aksen: café, naïve, 東京',
+      ket:'Menangani teks non-ASCII dengan benar lewat UTF-8, sehingga huruf beraksen dan aksara non-Latin tidak rusak — kelemahan yang umum pada penyandi Base64 sederhana.'
+    },
+    url: {
+      utama:'Sandikan', altNama:'Buka sandi',
+      jalan: encodeURIComponent, alt: decodeURIComponent,
+      contoh: 'https://contoh.id/cari?q=kopi susu&kota=jakarta selatan',
+      ket:'Memakai encodeURIComponent, sehingga karakter seperti &amp;, =, dan spasi ikut disandikan — yang dibutuhkan bila teks dipakai sebagai NILAI parameter, bukan sebagai alamat utuh.'
+    }
+  };
+
+  function pasangAlat(nama){
+    aktif = nama;
+    var a = ALAT[nama];
+    document.querySelectorAll('.tabs button').forEach(function(b){
+      b.setAttribute('aria-selected', String(b.dataset.alat === nama));
+    });
+    document.getElementById('jalan').textContent = a.utama;
+    var tombolAlt = document.getElementById('alt');
+    tombolAlt.textContent = a.altNama;
+    tombolAlt.hidden = !a.alt;
+    ket.textContent = a.ket;
+    keluar.value = '';
+    lapor('');
+  }
+
+  function proses(pakaiAlt){
+    var a = ALAT[aktif];
+    var fn = pakaiAlt ? a.alt : a.jalan;
+    if (!fn) return;
+    var teks = masuk.value;
+    if (!teks.trim()){ lapor('Masukan masih kosong.', 'err'); return; }
+    try {
+      var hasil = fn(teks);
+      keluar.value = hasil;
+      lapor('Selesai · ' + hemat(teks, hasil), 'ok');
+    } catch (e){
+      keluar.value = '';
+      lapor(e.message, 'err');
+    }
+  }
+
+  document.querySelectorAll('.tabs button').forEach(function(b){
+    b.addEventListener('click', function(){ pasangAlat(b.dataset.alat); });
+  });
+  document.getElementById('jalan').addEventListener('click', function(){ proses(false); });
+  document.getElementById('alt').addEventListener('click', function(){ proses(true); });
+  document.getElementById('contoh').addEventListener('click', function(){
+    masuk.value = ALAT[aktif].contoh; keluar.value = ''; lapor('Contoh dimuat.', 'ok');
+  });
+  document.getElementById('bersih').addEventListener('click', function(){
+    masuk.value = ''; keluar.value = ''; lapor('');
+  });
+  document.getElementById('salin').addEventListener('click', function(){
+    if (!keluar.value){ lapor('Belum ada hasil untuk disalin.', 'err'); return; }
+    keluar.select();
+    try { document.execCommand('copy'); lapor('Hasil disalin.', 'ok'); }
+    catch(e){ lapor('Salin manual: teks sudah diblok.', 'err'); }
+  });
+
+  /* ---------- cookie (prototipe: pilihan tidak disimpan) ---------- */
+  var ck = document.getElementById('cookie');
+  ck.hidden = false;
+  document.getElementById('ck-perlu').addEventListener('click', function(){ ck.hidden = true; });
+  document.getElementById('ck-semua').addEventListener('click', function(){ ck.hidden = true; });
+
+  pasangAlat('json');
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+# Kotak Alat — konfigurasi Apache untuk shared hosting.
+# Tujuannya satu: /json-formatter melayani json-formatter.html,
+# sehingga alamat tanpa .html juga jalan di luar Vercel.
+
+Options -MultiViews
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # 1. Alamat lama ber-.html dialihkan permanen ke alamat bersih,
+  #    supaya tidak ada dua URL untuk satu halaman (buruk untuk SEO).
+  RewriteCond %{THE_REQUEST} \s/+([^?\s]+)\.html[\s?] [NC]
+  RewriteRule ^ /%1 [R=301,L]
+
+  # 2. /json-formatter dilayani oleh json-formatter.html.
+  #    Pengalihan ini internal, jadi tidak memicu aturan nomor 1.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+  RewriteRule ^(.+?)/?$ $1.html [L]
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddDefaultCharset UTF-8
+  AddType application/xml .xml
+</IfModule>
+
+# Aset boleh disimpan lama; halaman HTML tidak.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css            "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/html           "access plus 0 seconds"
+</IfModule>
+
+# Jangan sajikan berkas kerja penulis sebagai bagian situs.
+<FilesMatch "^(package(-lock)?\.json|tailwind\.config\.js)$">
+  Require all denied
+</FilesMatch>

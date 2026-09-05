@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kotak Alat — perkakas format &amp; konversi di browser</title>
+<meta name="description" content="Kumpulan alat pemformat, pemadat, pemeriksa, dan pengonversi yang berjalan sepenuhnya di browser: JSON, HTML, CSS, XML, Base64, URL, regex, dan timestamp.">
+<link rel="canonical" href="https://kotak-alat.vercel.app/">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kotak Alat — perkakas format &amp; konversi di browser">
+<meta property="og:description" content="Kumpulan alat pemformat, pemadat, pemeriksa, dan pengonversi yang berjalan sepenuhnya di browser: JSON, HTML, CSS, XML, Base64, URL, regex, dan timestamp.">
+<meta property="og:url" content="https://kotak-alat.vercel.app/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%231f6feb'/%3E%3Cpath d='M4 6h8M4 9h5' stroke='white' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/assets/kotakalat.css">
+<script>
+/* dijalankan sebelum halaman digambar supaya mode gelap tidak berkedip */
+(function(){try{var t=localStorage.getItem('kotakalat-tema');
+if(t==='gelap'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){
+document.documentElement.classList.add('dark');}}catch(e){}})();
+</script>
+
+</head>
+<body class="min-h-screen flex flex-col">
+
+<a href="#isi-utama" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:m-2 focus:rounded-lg focus:bg-aksen focus:px-3 focus:py-2 focus:text-aksenTx">Lewati ke isi</a>
+
+<header class="border-b border-garis bg-kertas2 dark:border-garisG dark:bg-gelap2">
+  <div class="wadah flex flex-wrap items-center gap-x-4 gap-y-2 py-3.5">
+    <a href="/" class="text-[17px] font-bold tracking-tight text-tinta no-underline dark:text-kapur">Kotak<span class="text-aksen dark:text-aksenG">Alat</span></a>
+    <nav aria-label="Navigasi utama" class="ml-auto flex flex-wrap gap-1 order-3 w-full sm:order-none sm:w-auto">
+      <a href="/" class="rounded-lg bg-kertas3 px-2.5 py-1.5 text-[14px] font-semibold text-tinta no-underline dark:bg-gelap3 dark:text-kapur" aria-current="page">Alat</a>
+      <a href="/tentang" class="rounded-lg px-2.5 py-1.5 text-[14px] text-tinta2 no-underline hover:bg-kertas3 hover:text-tinta dark:text-kapur2 dark:hover:bg-gelap3 dark:hover:text-kapur">Tentang</a>
+      <a href="/privasi" class="rounded-lg px-2.5 py-1.5 text-[14px] text-tinta2 no-underline hover:bg-kertas3 hover:text-tinta dark:text-kapur2 dark:hover:bg-gelap3 dark:hover:text-kapur">Privasi</a>
+      <a href="/ketentuan" class="rounded-lg px-2.5 py-1.5 text-[14px] text-tinta2 no-underline hover:bg-kertas3 hover:text-tinta dark:text-kapur2 dark:hover:bg-gelap3 dark:hover:text-kapur">Ketentuan</a>
+      <a href="/kontak" class="rounded-lg px-2.5 py-1.5 text-[14px] text-tinta2 no-underline hover:bg-kertas3 hover:text-tinta dark:text-kapur2 dark:hover:bg-gelap3 dark:hover:text-kapur">Kontak</a>
+    </nav>
+    <button type="button" id="tombol-tema" class="tbl tbl-sekunder ml-auto sm:ml-0" aria-pressed="false" title="Ganti mode terang / gelap">
+      <span aria-hidden="true" id="ikon-tema">☾</span>
+      <span id="teks-tema">Mode gelap</span>
+    </button>
+  </div>
+</header>
+
+<div class="wadah">
+  <div class="slot-iklan slot-728" role="complementary" aria-label="Ruang iklan">Slot iklan · 728 × 90</div>
+</div>
+
+<div class="wadah grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_300px] gap-7 items-start pb-10 flex-1">
+  <main id="isi-utama">
+    
+    <h1>Perkakas format &amp; konversi</h1>
+    <p class="mb-1 max-w-[68ch] text-tinta2 dark:text-kapur2">Semua berjalan di browser Anda. Tidak ada data yang dikirim ke server mana pun.</p>
+    <section id="kategori-formatter" class="mt-8 scroll-mt-4">
+        <h2 class="mt-0">Formatter</h2>
+        <ul class="mt-3 grid gap-3 list-none p-0 sm:grid-cols-2">
+          <li>
+            <a href="/json-formatter" class="block h-full rounded-xl border border-garis bg-kertas2 p-4 no-underline transition-colors hover:border-aksen dark:border-garisG dark:bg-gelap2 dark:hover:border-aksenG">
+              <span class="block text-[15px] font-semibold text-tinta dark:text-kapur">JSON Formatter</span>
+              <span class="mt-1 block text-[13px] leading-relaxed text-tinta2 dark:text-kapur2">Menyusun ulang JSON dengan indentasi dua spasi sekaligus memeriksa kesahihannya. Bila ada kesalahan sintaks, posisinya ditunjuk sampai baris dan kolom.</span>
+            </a>
+          </li>
+          <li>
+            <a href="/html-formatter" class="block h-full rounded-xl border border-garis bg-kertas2 p-4 no-underline transition-colors hover:border-aksen dark:border-garisG dark:bg-gelap2 dark:hover:border-aksenG">
+              <span class="block text-[15px] font-semibold text-tinta dark:text-kapur">HTML Formatter</span>
+              <span class="mt-1 block text-[13px] leading-relaxed text-tinta2 dark:text-kapur2">Menata indentasi HTML mengikuti kedalaman tag. Tag tanpa penutup seperti <code>img</code> dan <code>br</code> tidak menambah kedalaman.</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+      <section id="kategori-minifier" class="mt-8 scroll-mt-4">
+        <h2 class="mt-0">Minifier</h2>
+        <ul class="mt-3 grid gap-3 list-none p-0 sm:grid-cols-2">
+          <li>
+            <a href="/json-minifier" class="block h-full rounded-xl border border-garis bg-kertas2 p-4 no-underline transition-colors hover:border-aksen dark:border-garisG dark:bg-gelap2 dark:hover:border-aksenG">
+              <span class="block text-[15px] font-semibold text-tinta dark:text-kapur">JSON Minifier</span>
+              <span class="mt-1 block text-[13px] leading-relaxed text-tinta2 dark:text-kapur2">Membuang seluruh spasi dan baris baru dari JSON. Masukan diurai lebih dulu, jadi hasilnya dijamin JSON yang sah — bukan hasil potong-potong teks.</span>
+            </a>
+          </li>
+          <li>
+            <a href="/css-minifier" class="block h-full rounded-xl border border-garis bg-kertas2 p-4 no-underline transition-colors hover:border-aksen dark:border-garisG dark:bg-gelap2 dark:hover:border-aksenG">
+              <span class="block text-[15px] font-semibold text-tinta dark:text-kapur">CSS Minifier</span>
+              <span class="mt-1 block text-[13px] leading-relaxed text-tinta2 dark:text-kapur2">Pemadat yang sengaja dibuat konservatif: hanya membuang komentar dan spasi yang pasti aman, tanpa menyentuh isi properti Anda.</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+      <section id="kategori-validator" class="mt-8 scroll-mt-4">
+        <h2 class="mt-0">Validator</h2>
+        <ul class="mt-3 grid gap-3 list-none p-0 sm:grid-cols-2">
+          <li>
+            <a href="/json-validator" class="block h-full rounded-xl border border-garis bg-kertas2 p-4 no-underline transition-colors hover:border-aksen dark:border-garisG dark:bg-gelap2 dark:hover:border-aksenG">
+              <span class="block text-[15px] font-semibold text-tinta dark:text-kapur">JSON Validator</span>
+              <span class="mt-1 block text-[13px] leading-relaxed text-tinta2 dark:text-kapur2">Memeriksa apakah JSON sah. Kalau tidak, kesalahan ditunjuk pada baris dan kolom tertentu dengan cuplikan barisnya. Kalau sah, ditampilkan ringkasan strukturnya.</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+      <section id="kategori-konverter" class="mt-8 scroll-mt-4">
+        <h2 class="mt-0">Konverter</h2>
+        <ul class="mt-3 grid gap-3 list-none p-0 sm:grid-cols-2">
+          <li>
+            <a href="/json-to-xml" class="block h-full rounded-xl border border-garis bg-kertas2 p-4 no-underline transition-colors hover:border-aksen dark:border-garisG dark:bg-gelap2 dark:hover:border-aksenG">
+              <span class="block text-[15px] font-semibold text-tinta dark:text-kapur">JSON ke XML</span>
+              <span class="mt-1 block text-[13px] leading-relaxed text-tinta2 dark:text-kapur2">Mengubah JSON menjadi XML. Larik menjadi elemen berulang dengan nama tag yang sama.</span>
+            </a>
+          </li>
+          <li>
+            <a href="/timestamp-converter" class="block h-full rounded-xl border border-garis bg-kertas2 p-4 no-underline transition-colors hover:border-aksen dark:border-garisG dark:bg-gelap2 dark:hover:border-aksenG">
+              <span class="block text-[15px] font-semibold text-tinta dark:text-kapur">Timestamp Converter</span>
+              <span class="mt-1 block text-[13px] leading-relaxed text-tinta2 dark:text-kapur2">Mengubah Unix timestamp menjadi tanggal terbaca, atau tanggal menjadi timestamp. Detik dan milidetik dikenali otomatis, dan tiap baris diproses sendiri-sendiri.</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+      <section id="kategori-encoder" class="mt-8 scroll-mt-4">
+        <h2 class="mt-0">Encoder</h2>
+        <ul class="mt-3 grid gap-3 list-none p-0 sm:grid-cols-2">
+          <li>
+            <a href="/base64-encoder" class="block h-full rounded-xl border border-garis bg-kertas2 p-4 no-underline transition-colors hover:border-aksen dark:border-garisG dark:bg-gelap2 dark:hover:border-aksenG">
+              <span class="block text-[15px] font-semibold text-tinta dark:text-kapur">Base64</span>
+              <span class="mt-1 block text-[13px] leading-relaxed text-tinta2 dark:text-kapur2">Menyandikan dan membuka sandi Base64 lewat UTF-8, sehingga huruf beraksen dan aksara non-Latin tidak rusak.</span>
+            </a>
+          </li>
+          <li>
+            <a href="/url-encoder" class="block h-full rounded-xl border border-garis bg-kertas2 p-4 no-underline transition-colors hover:border-aksen dark:border-garisG dark:bg-gelap2 dark:hover:border-aksenG">
+              <span class="block text-[15px] font-semibold text-tinta dark:text-kapur">URL Encoder</span>
+              <span class="mt-1 block text-[13px] leading-relaxed text-tinta2 dark:text-kapur2">Menyandikan teks menjadi percent-encoding dengan <code>encodeURIComponent</code>, cocok untuk NILAI parameter — bukan untuk alamat utuh.</span>
+            </a>
+          </li>
+          <li>
+            <a href="/html-escape" class="block h-full rounded-xl border border-garis bg-kertas2 p-4 no-underline transition-colors hover:border-aksen dark:border-garisG dark:bg-gelap2 dark:hover:border-aksenG">
+              <span class="block text-[15px] font-semibold text-tinta dark:text-kapur">HTML Escape</span>
+              <span class="mt-1 block text-[13px] leading-relaxed text-tinta2 dark:text-kapur2">Mengubah <code>&lt;</code>, <code>&gt;</code>, <code>&amp;</code>, dan tanda kutip menjadi entitas HTML agar aman ditampilkan sebagai teks biasa.</span>
+            </a>
+          </li>
+          <li>
+            <a href="/xml-escape" class="block h-full rounded-xl border border-garis bg-kertas2 p-4 no-underline transition-colors hover:border-aksen dark:border-garisG dark:bg-gelap2 dark:hover:border-aksenG">
+              <span class="block text-[15px] font-semibold text-tinta dark:text-kapur">XML Escape</span>
+              <span class="mt-1 block text-[13px] leading-relaxed text-tinta2 dark:text-kapur2">Escape dan unescape memakai lima entitas baku XML: <code>&amp;amp;</code>, <code>&amp;lt;</code>, <code>&amp;gt;</code>, <code>&amp;quot;</code>, dan <code>&amp;apos;</code>.</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+      <section id="kategori-lainnya" class="mt-8 scroll-mt-4">
+        <h2 class="mt-0">Lainnya</h2>
+        <ul class="mt-3 grid gap-3 list-none p-0 sm:grid-cols-2">
+          <li>
+            <a href="/regex-tester" class="block h-full rounded-xl border border-garis bg-kertas2 p-4 no-underline transition-colors hover:border-aksen dark:border-garisG dark:bg-gelap2 dark:hover:border-aksenG">
+              <span class="block text-[15px] font-semibold text-tinta dark:text-kapur">Regex Tester</span>
+              <span class="mt-1 block text-[13px] leading-relaxed text-tinta2 dark:text-kapur2">Menguji pola regular expression JavaScript pada teks. Tiap kecocokan dilaporkan dengan baris, kolom, dan isi grup penangkapnya.</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+      <div class="catatan mt-8">
+        Tiap alat punya berkas HTML dan alamatnya sendiri. Berpindah alat memuat ulang dokumen
+        sepenuhnya seperti situs biasa, bukan menukar isi halaman lewat JavaScript.
+      </div>
+  </main>
+
+  <aside class="w-full">
+    
+    <div class="slot-iklan slot-300 mx-auto lg:mx-0" role="complementary" aria-label="Ruang iklan">Slot iklan · 300 × 600</div>
+  </aside>
+</div>
+
+<footer class="border-t border-garis bg-kertas2 py-8 dark:border-garisG dark:bg-gelap2">
+  <div class="wadah">
+    <nav aria-label="Semua alat" class="grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-3 lg:grid-cols-6">
+      <div>
+        <h2 class="mt-0 mb-2 text-[12px] font-semibold uppercase tracking-wider text-tinta3 dark:text-kapur3">Formatter</h2>
+        <ul class="grid gap-1.5 list-none p-0 m-0">
+          <li><a href="/json-formatter" class="text-[13px] text-tinta2 hover:text-aksen dark:text-kapur2 dark:hover:text-aksenG no-underline">JSON Formatter</a></li>
+          <li><a href="/html-formatter" class="text-[13px] text-tinta2 hover:text-aksen dark:text-kapur2 dark:hover:text-aksenG no-underline">HTML Formatter</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="mt-0 mb-2 text-[12px] font-semibold uppercase tracking-wider text-tinta3 dark:text-kapur3">Minifier</h2>
+        <ul class="grid gap-1.5 list-none p-0 m-0">
+          <li><a href="/json-minifier" class="text-[13px] text-tinta2 hover:text-aksen dark:text-kapur2 dark:hover:text-aksenG no-underline">JSON Minifier</a></li>
+          <li><a href="/css-minifier" class="text-[13px] text-tinta2 hover:text-aksen dark:text-kapur2 dark:hover:text-aksenG no-underline">CSS Minifier</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="mt-0 mb-2 text-[12px] font-semibold uppercase tracking-wider text-tinta3 dark:text-kapur3">Validator</h2>
+        <ul class="grid gap-1.5 list-none p-0 m-0">
+          <li><a href="/json-validator" class="text-[13px] text-tinta2 hover:text-aksen dark:text-kapur2 dark:hover:text-aksenG no-underline">JSON Validator</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="mt-0 mb-2 text-[12px] font-semibold uppercase tracking-wider text-tinta3 dark:text-kapur3">Konverter</h2>
+        <ul class="grid gap-1.5 list-none p-0 m-0">
+          <li><a href="/json-to-xml" class="text-[13px] text-tinta2 hover:text-aksen dark:text-kapur2 dark:hover:text-aksenG no-underline">JSON ke XML</a></li>
+          <li><a href="/timestamp-converter" class="text-[13px] text-tinta2 hover:text-aksen dark:text-kapur2 dark:hover:text-aksenG no-underline">Timestamp Converter</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="mt-0 mb-2 text-[12px] font-semibold uppercase tracking-wider text-tinta3 dark:text-kapur3">Encoder</h2>
+        <ul class="grid gap-1.5 list-none p-0 m-0">
+          <li><a href="/base64-encoder" class="text-[13px] text-tinta2 hover:text-aksen dark:text-kapur2 dark:hover:text-aksenG no-underline">Base64</a></li>
+          <li><a href="/url-encoder" class="text-[13px] text-tinta2 hover:text-aksen dark:text-kapur2 dark:hover:text-aksenG no-underline">URL Encoder</a></li>
+          <li><a href="/html-escape" class="text-[13px] text-tinta2 hover:text-aksen dark:text-kapur2 dark:hover:text-aksenG no-underline">HTML Escape</a></li>
+          <li><a href="/xml-escape" class="text-[13px] text-tinta2 hover:text-aksen dark:text-kapur2 dark:hover:text-aksenG no-underline">XML Escape</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="mt-0 mb-2 text-[12px] font-semibold uppercase tracking-wider text-tinta3 dark:text-kapur3">Lainnya</h2>
+        <ul class="grid gap-1.5 list-none p-0 m-0">
+          <li><a href="/regex-tester" class="text-[13px] text-tinta2 hover:text-aksen dark:text-kapur2 dark:hover:text-aksenG no-underline">Regex Tester</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="mt-7 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-garis pt-5 text-[13px] text-tinta2 dark:border-garisG dark:text-kapur2">
+      <a href="/" class="text-tinta2 no-underline hover:text-aksen dark:text-kapur2 dark:hover:text-aksenG" aria-current="page">Alat</a>
+      <a href="/tentang" class="text-tinta2 no-underline hover:text-aksen dark:text-kapur2 dark:hover:text-aksenG">Tentang</a>
+      <a href="/privasi" class="text-tinta2 no-underline hover:text-aksen dark:text-kapur2 dark:hover:text-aksenG">Privasi</a>
+      <a href="/ketentuan" class="text-tinta2 no-underline hover:text-aksen dark:text-kapur2 dark:hover:text-aksenG">Ketentuan</a>
+      <a href="/kontak" class="text-tinta2 no-underline hover:text-aksen dark:text-kapur2 dark:hover:text-aksenG">Kontak</a>
+    </div>
+    <p class="mt-3 text-[13px] text-tinta3 dark:text-kapur3">Seluruh pemrosesan terjadi di browser Anda.</p>
+  </div>
+</footer>
+
+<div id="cookie" hidden class="fixed inset-x-4 bottom-4 z-40 mx-auto max-w-[560px] rounded-xl border border-garis bg-kertas p-4 text-[13.5px] text-tinta2 shadow-2xl dark:border-garisG dark:bg-gelap2 dark:text-kapur2">
+  Situs ini memakai cookie seperlunya agar berfungsi. Cookie untuk pengukuran dan iklan
+  hanya dipasang bila Anda mengizinkannya.
+  <div class="mt-3 flex flex-wrap gap-2">
+    <button type="button" class="tbl" id="ck-perlu">Hanya yang diperlukan</button>
+    <button type="button" class="tbl tbl-sekunder" id="ck-semua">Izinkan semua</button>
+  </div>
+</div>
+
+<script src="/assets/situs.js"></script>
+
+</body>
+</html>

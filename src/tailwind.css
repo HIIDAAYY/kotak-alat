@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-kertas text-tinta font-sans text-[15px] leading-relaxed;
+    @apply dark:bg-gelap dark:text-kapur;
+  }
+  a { @apply text-aksen dark:text-aksenG; }
+  h1 { @apply text-[26px] font-bold tracking-tight mb-2; }
+  h2 { @apply text-[18px] font-semibold mt-7 mb-2; }
+}
+
+@layer components {
+  /* Pembungkus lebar isi, sama dengan .wrap versi lama.
+     w-full wajib: <body> adalah flex column, dan margin auto pada sumbu
+     silang membatalkan stretch — tanpa w-full pembungkusnya menyusut ke isi. */
+  .wadah { @apply w-full max-w-isi mx-auto px-5; }
+
+  /* tombol */
+  .tbl {
+    @apply inline-flex items-center gap-1.5 rounded-lg border border-transparent
+           bg-aksen text-aksenTx text-[13.5px] font-medium px-3.5 py-2
+           cursor-pointer transition-colors;
+    @apply dark:bg-aksenG dark:text-aksenGTx;
+  }
+  .tbl:hover { @apply brightness-95; }
+  .tbl-sekunder {
+    @apply bg-kertas2 text-tinta2 border-garis;
+    @apply dark:bg-gelap2 dark:text-kapur2 dark:border-garisG;
+  }
+  .tbl-sekunder:hover { @apply bg-kertas3 text-tinta dark:bg-gelap3 dark:text-kapur; }
+  .tbl:focus-visible, a:focus-visible, summary:focus-visible {
+    @apply outline outline-2 outline-offset-2 outline-aksen dark:outline-aksenG;
+  }
+
+  /* slot iklan: tinggi dikunci supaya layout tidak melompat saat iklan dimuat */
+  .slot-iklan {
+    @apply flex items-center justify-center rounded-lg border border-dashed
+           border-garis bg-slot text-tinta3 text-xs uppercase tracking-widest
+           overflow-hidden;
+    @apply dark:border-garisG dark:bg-gelap2 dark:text-kapur3;
+  }
+  .slot-728 { @apply h-[90px] w-full my-5; }
+  .slot-300 { @apply h-[600px] w-full max-w-[300px]; }
+
+  /* kotak teks */
+  .kotak-teks {
+    @apply w-full rounded-lg border border-garis bg-kertas2 text-tinta
+           font-mono text-[13px] leading-[1.55] p-3 resize-y;
+    @apply dark:border-garisG dark:bg-gelap2 dark:text-kapur;
+  }
+  .kotak-teks:focus { @apply outline-none ring-2 ring-aksen dark:ring-aksenG; }
+
+  .label-kecil {
+    @apply block text-[12px] font-semibold uppercase tracking-wider
+           text-tinta3 mb-1.5 dark:text-kapur3;
+  }
+
+  /* panel hasil yang disorot */
+  .panel-hasil {
+    @apply w-full rounded-lg border border-garis bg-kertas2 font-mono
+           text-[13px] leading-[1.55] p-3 overflow-auto whitespace-pre
+           min-h-[260px] max-h-[420px] m-0;
+    @apply dark:border-garisG dark:bg-gelap2;
+  }
+
+  /* prosa untuk halaman teks */
+  .prosa { @apply max-w-[68ch]; }
+  .prosa p { @apply my-3 text-tinta2 dark:text-kapur2; }
+  .prosa ul { @apply my-3 pl-5 list-disc text-tinta2 dark:text-kapur2; }
+  .prosa li { @apply my-1; }
+
+  .kartu {
+    @apply rounded-xl border border-garis bg-kertas2 p-4;
+    @apply dark:border-garisG dark:bg-gelap2;
+  }
+
+  .catatan {
+    @apply mt-4 rounded-lg border border-garis bg-kertas2 p-3.5
+           text-[13px] leading-relaxed text-tinta2;
+    @apply dark:border-garisG dark:bg-gelap2 dark:text-kapur2;
+  }
+}
+
+/* ---- warna token penyorot sintaks (dipakai assets/sorot.js) ---- */
+@layer components {
+  .t-kunci  { @apply text-[#0a5ec4] dark:text-[#7cb7ff]; }
+  .t-teks   { @apply text-[#0a7d3f] dark:text-[#3ddc84]; }
+  .t-angka  { @apply text-[#a8430b] dark:text-[#ffab70]; }
+  .t-atom   { @apply text-[#8250df] dark:text-[#c39bff]; }
+  .t-tanda  { @apply text-tinta3 dark:text-kapur3; }
+  .t-tag    { @apply text-[#c0392b] dark:text-[#ff8b80]; }
+  .t-atr    { @apply text-[#8250df] dark:text-[#c39bff]; }
+  .t-komen  { @apply text-tinta3 italic dark:text-kapur3; }
+  .t-selek  { @apply text-[#c0392b] dark:text-[#ff8b80]; }
+  .t-prop   { @apply text-[#0a5ec4] dark:text-[#7cb7ff]; }
+  .t-cocok  { @apply bg-[#fff3b0] text-tinta rounded-sm dark:bg-[#5c4a00] dark:text-kapur; }
+}
